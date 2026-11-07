@@ -503,9 +503,9 @@
     </div>
 
     <script>
-        const API_BASE = (!window.location.hostname.includes('netlify.app'))
+        const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
             ? ''
-            : 'https://announcements-essence-champagne-receiving.trycloudflare.com';
+            : 'https://loja-uber.onrender.com';
 
         let authToken = localStorage.getItem('loja_admin_token') || '';
 
