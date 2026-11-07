@@ -557,9 +557,16 @@
             carregarDashboard();
             carregarConfiguracoes();
             carregarCodigos();
+            if (!window.dashboardInterval) {
+                window.dashboardInterval = setInterval(carregarDashboard, 8000);
+            }
         }
 
         function fazerLogout() {
+            if (window.dashboardInterval) {
+                clearInterval(window.dashboardInterval);
+                window.dashboardInterval = null;
+            }
             authToken = '';
             localStorage.removeItem('loja_admin_token');
             document.getElementById('login-screen').style.display = 'block';
