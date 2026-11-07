@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo | Loja Uber Cupom</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0d14;
+            --surface: #131722;
+            --card: #181d2a;
+            --border: #242a3e;
+            --primary: #00e676;
+            --primary-glow: rgba(0, 230, 118, 0.2);
+            --gold: #ffd600;
+            --danger: #ff4757;
+            --text: #ffffff;
+            --muted: #828a9e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Top Header */
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.15rem;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .btn-header {
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-header:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Auth Screen */
+        #login-screen {
+            max-width: 400px;
+            margin: 80px auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px 28px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        #login-screen h2 {
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+        #login-screen p {
+            color: var(--muted);
+            font-size: 0.88rem;
+            margin-bottom: 24px;
+        }
+
+        /* Main Admin Screen */
+        #admin-panel {
+            display: none;
+        }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+        .kpi-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+        .kpi-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary);
+            opacity: 0.5;
+        }
+        .kpi-label {
+            font-size: 0.82rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .kpi-val {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .kpi-val.green { color: var(--primary); }
+        .kpi-val.gold { color: var(--gold); }
+
+        /* Tabs Nav */
+        .tabs-nav {
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            overflow-x: auto;
+        }
+        .tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--muted);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .tab-btn:hover {
+            color: #fff;
+            background: var(--surface);
+        }
+        .tab-btn.active {
+            color: var(--primary);
+            background: rgba(0, 230, 118, 0.08);
+            border-color: rgba(0, 230, 118, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 26px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #d1d5e4;
+            margin-bottom: 6px;
+        }
+        .form-control {
+            width: 100%;
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border 0.2s;
+        }
+        .form-control:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-action {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+        .btn-action:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Table */
+        .table-responsive {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.88rem;
+        }
+        th {
+            background: var(--card);
+            color: var(--muted);
+            padding: 12px 16px;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border);
+        }
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            color: #e1e5f2;
+        }
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .badge-status {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .badge-status.PAID { background: rgba(0, 230, 118, 0.15); color: var(--primary); border: 1px solid rgba(0, 230, 118, 0.3); }
+        .badge-status.PENDING { background: rgba(255, 214, 0, 0.15); color: var(--gold); border: 1px solid rgba(255, 214, 0, 0.3); }
+
+        .code-tag {
+            font-family: 'JetBrains Mono', monospace;
+            background: #000;
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .btn-approve {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        /* Alert Box */
+        .alert-box {
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        .alert-success { background: rgba(0, 230, 118, 0.1); border: 1px solid var(--primary); color: var(--primary); }
+        .alert-error { background: rgba(255, 71, 87, 0.1); border: 1px solid var(--danger); color: var(--danger); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-brand">
+            <span style="font-size: 1.4rem;">⚙️</span>
+            <span>PAINEL ADMIN | UBER CUPOM</span>
+        </div>
+        <div class="header-actions">
+            <a href="/" target="_blank" class="btn-header">Ver Loja Ao Vivo ↗</a>
+            <button class="btn-header" onclick="fazerLogout()" id="btn-logout" style="display:none;">Sair</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- TELA DE LOGIN -->
+        <div id="login-screen">
+            <h2>Acesso Restrito</h2>
+            <p>Digite a senha mestra para gerenciar a loja, vendas e a BsPay.</p>
+            <form onsubmit="realizarLogin(event)">
+                <div class="form-group" style="text-align: left;">
+                    <label>Senha do Painel</label>
+                    <input type="password" id="input-password" class="form-control" placeholder="Digite sua senha de administrador" required>
+                </div>
+                <button type="submit" class="btn-action" style="width: 100%;">ENTRAR NO PAINEL</button>
+            </form>
+        </div>
+
+        <!-- PAINEL PRINCIPAL -->
+        <div id="admin-panel">
+            <!-- KPIS -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Faturamento Total</div>
+                    <div class="kpi-val green" id="kpi-faturamento">R$ 0,00</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Cupons Vendidos</div>
+                    <div class="kpi-val" id="kpi-vendidos">0</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Estoque Disponível</div>
+                    <div class="kpi-val gold" id="kpi-estoque">0</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Pedidos Pendentes</div>
+                    <div class="kpi-val" id="kpi-pendentes">0</div>
+                </div>
+            </div>
+
+            <!-- TABS -->
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="trocarTab('tab-pedidos')">🛒 Pedidos & Vendas</button>
+                <button class="tab-btn" onclick="trocarTab('tab-estoque')">🔑 Estoque de Cupons</button>
+                <button class="tab-btn" onclick="trocarTab('tab-bspay')">💳 Configuração BsPay & Loja</button>
+            </div>
+
+            <!-- TAB 1: PEDIDOS -->
+            <div id="tab-pedidos" class="tab-content active">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 style="font-size: 1.2rem; font-weight: 800;">Histórico de Vendas</h3>
+                    <button class="btn-secondary" onclick="carregarDashboard()">↻ Atualizar</button>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pedido</th>
+                                <th>Cliente</th>
+                                <th>WhatsApp</th>
+                                <th>Valor</th>
+                                <th>Código Entregue</th>
+                                <th>Data/Hora</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-pedidos">
+                            <tr><td colspan="8" style="text-align: center;">Carregando pedidos...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 2: ESTOQUE -->
+            <div id="tab-estoque" class="tab-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 14px;">
+                    <div>
+                        <h3 style="font-size: 1.25rem; font-weight: 800;">Gerenciamento de Cupons & Estoque</h3>
+                        <p style="color: var(--muted); font-size: 0.85rem;">Adicione ou gerencie os códigos que serão entregues aos clientes no site.</p>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn-secondary" style="color: #ff5252; border-color: rgba(255,82,82,0.3);" onclick="limparEstoqueDisponivel()">🗑️ Limpar Estoque Atual</button>
+                        <button class="btn-action" onclick="importarDoExtrator()">📥 Sincronizar codigos_unicos.txt</button>
+                    </div>
+                </div>
+
+                <div style="background: var(--card); border: 1.5px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; flex-wrap: wrap;">
+                        <h4 style="font-size: 1rem; font-weight: 800;">Colar Códigos Manualmente em Lote</h4>
+                        <span id="contador-linhas-coladas" style="font-size: 0.85rem; color: var(--green); font-weight: 700;">0 códigos detectados</span>
+                    </div>
+                    <p style="color: var(--muted); font-size: 0.85rem; margin-bottom: 12px;">Cole sua lista de códigos (um código por linha). Exemplo: se colar 5.000 códigos, todos serão adicionados e o site exibirá 5.000 códigos disponíveis imediatamente.</p>
+                    <textarea id="textarea-novos-codigos" class="form-control" rows="6" placeholder="gtsue5mtm6zt&#10;8nd12fd3agye&#10;4hbhdb7y948r&#10;..."></textarea>
+                    <div style="margin-top: 14px; display: flex; justify-content: flex-end;">
+                        <button class="btn-action" style="padding: 12px 24px; font-size: 0.95rem;" onclick="adicionarCodigosLote()">➕ INSERIR CÓDIGOS NO ESTOQUE</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Código</th>
+                                <th>Status</th>
+                                <th>Data de Adição</th>
+                                <th>Data da Venda</th>
+                                <th>Pedido Vinculado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-codigos">
+                            <tr><td colspan="6" style="text-align: center;">Carregando estoque...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 3: CONFIGURAÇÕES BSPAY -->
+            <div id="tab-bspay" class="tab-content">
+                <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 6px;">Configurações da BsPay & Gateway</h3>
+                <p style="color: var(--muted); font-size: 0.85rem; margin-bottom: 24px;">Insira suas credenciais da BsPay para processar pagamentos PIX com baixa automática.</p>
+
+                <div id="alert-config" class="alert-box"></div>
+
+                <form onsubmit="salvarConfiguracoes(event)">
+                    <div class="form-group">
+                        <label>Modo de Operação</label>
+                        <select id="cfg-bspay-mode" class="form-control">
+                            <option value="teste">🧪 Modo de Teste / Demonstração (Permite simular aprovação)</option>
+                            <option value="producao">🚀 Modo de Produção (BsPay Oficial Ao Vivo)</option>
+                        </select>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="form-group">
+                            <label>BsPay Client ID</label>
+                            <input type="text" id="cfg-bspay-id" class="form-control" placeholder="Cole seu Client ID da BsPay">
+                        </div>
+
+                        <div class="form-group">
+                            <label>BsPay Client Secret</label>
+                            <input type="password" id="cfg-bspay-sec" class="form-control" placeholder="Cole seu Client Secret da BsPay">
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <button type="button" class="btn-secondary" onclick="testarConexaoBsPay()">
+                            🔌 Testar Conexão com BsPay Agora
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>URL do Webhook (Cole no painel da BsPay para confirmação automática)</label>
+                        <input type="text" id="cfg-bspay-webhook" class="form-control" readonly onclick="this.select()">
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="form-group">
+                            <label>Preço do Cupom (R$)</label>
+                            <input type="number" step="0.50" id="cfg-preco" class="form-control" value="20.00">
+                        </div>
+
+                        <div class="form-group">
+                            <label>WhatsApp de Suporte (Apenas números com DDD)</label>
+                            <input type="text" id="cfg-whatsapp" class="form-control" placeholder="Ex: 92999999999">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Alterar Senha do Admin (Deixe em branco para não mudar)</label>
+                        <input type="password" id="cfg-nova-senha" class="form-control" placeholder="Nova senha">
+                    </div>
+
+                    <button type="submit" class="btn-action">SALVAR TODAS AS CONFIGURAÇÕES</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = (!window.location.hostname.includes('netlify.app'))
+            ? ''
+            : 'https://announcements-essence-champagne-receiving.trycloudflare.com';
+
+        let authToken = localStorage.getItem('loja_admin_token') || '';
+
+        if (authToken) {
+            verificarAutenticacao();
+        }
+
+        async function realizarLogin(e) {
+            e.preventDefault();
+            const password = document.getElementById('input-password').value;
+            try {
+                const res = await fetch(API_BASE + '/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                const data = await res.json();
+                if (data.success && data.token) {
+                    authToken = data.token;
+                    localStorage.setItem('loja_admin_token', authToken);
+                    mostrarPainel();
+                } else {
+                    alert('Erro: Senha incorreta!');
+                }
+            } catch (err) {
+                alert('Erro ao conectar com o servidor: ' + err.message);
+            }
+        }
+
+        async function verificarAutenticacao() {
+            try {
+                const res = await fetch(API_BASE + '/api/admin/stats', {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+                if (res.ok) {
+                    mostrarPainel();
+                } else {
+                    fazerLogout();
+                }
+            } catch (e) {
+                fazerLogout();
+            }
+        }
+
+        function mostrarPainel() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'block';
+            document.getElementById('btn-logout').style.display = 'block';
+            carregarDashboard();
+            carregarConfiguracoes();
+            carregarCodigos();
+        }
+
+        function fazerLogout() {
+            authToken = '';
+            localStorage.removeItem('loja_admin_token');
+            document.getElementById('login-screen').style.display = 'block';
+            document.getElementById('admin-panel').style.display = 'none';
+            document.getElementById('btn-logout').style.display = 'none';
+        }
+
+        function trocarTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        async function carregarDashboard() {
+            try {
+                const res = await fetch(API_BASE + '/api/admin/stats', {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+                const data = await res.json();
+
+                document.getElementById('kpi-faturamento').innerText = `R$ ${parseFloat(data.total_faturado).toFixed(2).replace('.', ',')}`;
+                document.getElementById('kpi-vendidos').innerText = data.total_vendidos;
+                document.getElementById('kpi-estoque').innerText = data.estoque_disponivel;
+                document.getElementById('kpi-pendentes').innerText = data.pedidos_pendentes;
+
+                // Tabela de Pedidos
+                const tbody = document.getElementById('tabela-pedidos');
+                if (data.pedidos_recentes.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#777;">Nenhum pedido registrado ainda.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = data.pedidos_recentes.map(p => `
+                    <tr>
+                        <td><strong>${p.order_id}</strong></td>
+                        <td>${p.cliente_nome || '-'}</td>
+                        <td>${p.cliente_contato || '-'}</td>
+                        <td>R$ ${parseFloat(p.valor).toFixed(2).replace('.', ',')}</td>
+                        <td>${p.codigo_entregue ? `<span class="code-tag">${p.codigo_entregue}</span>` : '<span style="color:#666;">-</span>'}</td>
+                        <td style="font-size:0.8rem; color:var(--muted);">${p.criado_em}</td>
+                        <td><span class="badge-status ${p.status}">${p.status === 'PAID' ? 'Pago ✓' : 'Pendente'}</span></td>
+                        <td>
+                            ${p.status !== 'PAID' ? `
+                                <button class="btn-approve" onclick="aprovarManualmente('${p.order_id}')">Aprovar & Liberar</button>
+                            ` : '<span style="color:var(--primary); font-size:0.8rem;">Entregue ✓</span>'}
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (e) {
+                console.error('Erro dashboard:', e);
+            }
+        }
+
+        async function aprovarManualmente(orderId) {
+            if (!confirm(`Deseja aprovar manualmente o pedido ${orderId} e entregar um código agora?`)) return;
+            try {
+                const res = await fetch(API_BASE + `/api/admin/pedidos/${orderId}/aprovar`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert(`✅ Pedido aprovado! Código entregue: ${data.codigo}`);
+                    carregarDashboard();
+                    carregarCodigos();
+                } else {
+                    alert('Erro: ' + (data.error || 'Falha ao aprovar'));
+                }
+            } catch (err) {
+                alert('Erro: ' + err.message);
+            }
+        }
+
+        async function carregarCodigos() {
+            try {
+                const res = await fetch(API_BASE + '/api/admin/codigos', {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+                const data = await res.json();
+                const tbody = document.getElementById('tabela-codigos');
+                tbody.innerHTML = data.codigos.map(c => `
+                    <tr>
+                        <td>#${c.id}</td>
+                        <td><span class="code-tag">${c.codigo}</span></td>
+                        <td>
+                            <span class="badge-status ${c.status === 'disponivel' ? 'PAID' : 'PENDING'}">
+                                ${c.status === 'disponivel' ? 'Disponível' : 'Vendido'}
+                            </span>
+                        </td>
+                        <td style="font-size:0.8rem; color:var(--muted);">${c.data_adicionado || '-'}</td>
+                        <td style="font-size:0.8rem; color:var(--muted);">${c.data_venda || '-'}</td>
+                        <td>${c.order_id || '-'}</td>
+                    </tr>
+                `).join('');
+            } catch (e) {
+                console.error('Erro ao carregar códigos:', e);
+            }
+        }
+
+        async function importarDoExtrator() {
+            try {
+                const res = await fetch(API_BASE + '/api/admin/codigos/importar', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+                const data = await res.json();
+                alert(`✅ Sincronização concluída! ${data.imported} novos códigos foram importados para o estoque.`);
+                carregarDashboard();
+                carregarCodigos();
+            } catch (err) {
+                alert('Erro na sincronização: ' + err.message);
+            }
+        }
+
+        async function adicionarCodigosLote() {
+            const texto = document.getElementById('textarea-novos-codigos').value;
+            if (!texto.trim()) {
+                alert('Digite ou cole os códigos primeiro!');
+                return;
+            }
+            try {
+                const res = await fetch(API_BASE + '/api/admin/codigos/adicionar', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ codigos_texto: texto })
+                });
+                const data = await res.json();
+                alert(`✅ Sucesso! ${data.added} códigos foram adicionados ao estoque.`);
+                document.getElementById('textarea-novos-codigos').value = '';
+                document.getElementById('contador-linhas-coladas').innerText = '0 códigos detectados';
+                carregarDashboard();
+                carregarCodigos();
+            } catch (err) {
+                alert('Erro: ' + err.message);
+            }
+        }
+
+        async function limparEstoqueDisponivel() {
+            if (!confirm('Atenção: Deseja realmente APAGAR todos os códigos disponíveis do estoque para subir uma nova lista?')) {
+                return;
+            }
+            try {
+                const res = await fetch(API_BASE + '/api/admin/codigos/limpar', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+                const data = await res.json();
+                alert(`🗑️ Estoque limpo! ${data.deleted} códigos disponíveis foram apagados.`);
+                carregarDashboard();
+                carregarCodigos();
+            } catch (err) {
+                alert('Erro ao limpar estoque: ' + err.message);
+            }
+        }
+
+        // Contador de linhas em tempo real ao colar no textarea
+        document.getElementById('textarea-novos-codigos').addEventListener('input', function(e) {
+            const count = e.target.value.split('\n').filter(l => l.trim().length >= 4).length;
+            document.getElementById('contador-linhas-coladas').innerText = `${count.toLocaleString('pt-BR')} códigos detectados`;
+        });
+
+        async function carregarConfiguracoes() {
+            try {
+                const res = await fetch(API_BASE + '/api/admin/config', {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+                const data = await res.json();
+                document.getElementById('cfg-bspay-mode').value = data.bspay_mode || 'teste';
+                document.getElementById('cfg-bspay-id').value = data.bspay_client_id || '';
+                document.getElementById('cfg-bspay-sec').value = data.bspay_client_secret || '';
+                document.getElementById('cfg-bspay-webhook').value = data.webhook_url || '';
+                document.getElementById('cfg-preco').value = data.preco_cupom || '20.00';
+                document.getElementById('cfg-whatsapp').value = data.whatsapp_suporte || '';
+            } catch (e) {
+                console.error('Erro ao carregar configurações:', e);
+            }
+        }
+
+        async function salvarConfiguracoes(e) {
+            e.preventDefault();
+            const alertBox = document.getElementById('alert-config');
+            const payload = {
+                bspay_mode: document.getElementById('cfg-bspay-mode').value,
+                bspay_client_id: document.getElementById('cfg-bspay-id').value.trim(),
+                bspay_client_secret: document.getElementById('cfg-bspay-sec').value.trim(),
+                bspay_webhook_url: document.getElementById('cfg-bspay-webhook').value.trim(),
+                preco_cupom: document.getElementById('cfg-preco').value,
+                whatsapp_suporte: document.getElementById('cfg-whatsapp').value.trim()
+            };
+
+            const novaSenha = document.getElementById('cfg-nova-senha').value.trim();
+            if (novaSenha) payload.admin_password = novaSenha;
+
+            try {
+                const res = await fetch(API_BASE + '/api/admin/config', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alertBox.className = 'alert-box alert-success';
+                    alertBox.innerText = '✅ Configurações salvas com sucesso!';
+                    alertBox.style.display = 'block';
+                    setTimeout(() => { alertBox.style.display = 'none'; }, 3000);
+                }
+            } catch (err) {
+                alertBox.className = 'alert-box alert-error';
+                alertBox.innerText = 'Erro ao salvar: ' + err.message;
+                alertBox.style.display = 'block';
+            }
+        }
+
+        async function testarConexaoBsPay() {
+            const clientId = document.getElementById('cfg-bspay-id').value.trim();
+            const clientSecret = document.getElementById('cfg-bspay-sec').value.trim();
+            if (!clientId || !clientSecret) {
+                alert('Preencha o Client ID e Client Secret antes de testar!');
+                return;
+            }
+
+            const alertBox = document.getElementById('alert-config');
+            alertBox.className = 'alert-box alert-success';
+            alertBox.innerText = 'Conectando à API da BsPay...';
+            alertBox.style.display = 'block';
+
+            try {
+                const res = await fetch(API_BASE + '/api/admin/test_bspay', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ client_id: clientId, client_secret: clientSecret })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alertBox.className = 'alert-box alert-success';
+                    alertBox.innerText = data.message;
+                } else {
+                    alertBox.className = 'alert-box alert-error';
+                    alertBox.innerText = data.error;
+                }
+            } catch (err) {
+                alertBox.className = 'alert-box alert-error';
+                alertBox.innerText = 'Erro de rede: ' + err.message;
+            }
+        }
+    </script>
+</body>
+</html>
